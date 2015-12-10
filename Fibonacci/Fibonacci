@@ -1,0 +1,51 @@
+package main
+
+import "fmt"
+import "time"
+
+//Recursion
+func fibRecursion(n uint) uint {
+	fmt.Println(n)
+	if n == 0 {
+		return 0
+	} else if n == 1 {
+		return 1
+	} else {
+		return fibRecursion(n-1) + fibRecursion(n-2)
+	}
+}
+
+//NotRecursion
+func fib(n uint) uint {
+	if (n == 0) {
+		return 0
+	} else if (n == 1) {
+		return 1
+	} else {
+		prevItem := uint(1)
+		prevprevItem := uint(0)
+		currentItem := uint(0)
+		for i := uint(0); i < n; i++ {
+			currentItem = i
+			if currentItem > 1 {
+				currentItem = prevprevItem + prevItem
+				prevprevItem = prevItem
+				prevItem = currentItem
+				fmt.Println(prevItem);
+			}
+		}
+		return prevItem
+	}
+}
+
+func main() {
+	n := uint(30)
+	startTime := time.Now()
+	fmt.Println(fib(n))
+	duration := time.Since(startTime);
+	fmt.Println(duration.Seconds())
+	startTime2 := time.Now()
+	fmt.Println(fibRecursion(n))
+	duration2 := time.Since(startTime2);
+	fmt.Println(duration2.Seconds())
+}
